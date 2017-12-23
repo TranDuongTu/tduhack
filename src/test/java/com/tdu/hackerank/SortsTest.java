@@ -65,4 +65,10 @@ public class SortsTest {
     Sorts.countSort(copiedInput);
     assertThat(copiedInput).isSorted();
   }
+
+  @Test
+  public void testHeapSort() throws Exception {
+    Sorts.heapSort(copiedInput);
+    assertThat(copiedInput).isSorted();
+  }
 }

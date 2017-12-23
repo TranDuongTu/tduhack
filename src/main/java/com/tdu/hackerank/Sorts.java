@@ -165,4 +165,39 @@ public class Sorts {
       array[pos] = value;
     }
   }
+  
+  public static void heapSort(final int[] array) {
+    buildMaxHeap(array);
+    
+    int heapLength = array.length;
+    while (heapLength > 1) {
+      Utils.swap(array, 0, heapLength - 1);
+      heapify(array, --heapLength, 0);
+    }
+  }
+  
+  private static void buildMaxHeap(final int[] array) {
+    for (int i = (array.length - 1) / 2; i >= 0; i--) {
+      heapify(array, array.length, i);
+    }
+  }
+  
+  private static void heapify(final int[] heap, final int length, final int i) {
+    final int left = i * 2 + 1;
+    final int right = left + 1;
+    
+    int largest = i;
+    if (left < length && heap[left] > heap[largest]) {
+      largest = left;
+    }
+    
+    if (right < length && heap[right] > heap[largest]) {
+      largest = right;
+    }
+    
+    if (largest != i) {
+      Utils.swap(heap, largest, i);
+      heapify(heap, length, largest);
+    }
+  }
 }
