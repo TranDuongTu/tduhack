@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,12 +19,21 @@ public class MstTest {
 
   @Test
   public void testKruskal() throws Exception {
+    testMST(Kruskal::findMST);
+  }
+
+  @Test
+  public void testPRIM() throws Exception {
+    testMST(PRIM::findMST);
+  }
+
+  private void testMST(final Function<List<int[]>, List<int[]>> algorithm) throws Exception {
     for (int i = 0; i < TESTCASES.length; i++) {
       final String input = TESTCASE_PATH + TESTCASES[i];
       final InputStream inputStream = MstTest.class.getResourceAsStream(input);
       final List<int[]> graph = readGraph(inputStream);
-      final List<int[]> mst = Kruskal.findMST(graph);
-      
+      final List<int[]> mst = algorithm.apply(graph);
+
       final String output = TESTCASE_PATH + OUTPUTS[i];
       InputStream outputStream = MstTest.class.getResourceAsStream(output);
       final int totalWeight = mst.stream().map(edge -> edge[2]).reduce(0, (x, y) -> x + y);
