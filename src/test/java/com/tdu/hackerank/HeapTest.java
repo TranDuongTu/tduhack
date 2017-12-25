@@ -3,7 +3,6 @@ package com.tdu.hackerank;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,9 +12,7 @@ public class HeapTest {
   @Test
   public void testBuildHeap() throws Exception {
     final int[] heap = Helpers.generate(10000, 100);
-    System.out.println(Arrays.toString(heap));
     Heap.buildMaxHeap(heap);
-    System.out.println(Arrays.toString(heap));
     Assert.assertEquals(Helpers.isMaxHeap(heap), true);
   }
 
