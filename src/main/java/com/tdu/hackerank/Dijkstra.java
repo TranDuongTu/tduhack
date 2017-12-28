@@ -17,7 +17,7 @@ public class Dijkstra {
     final int[] result = new int[distTo.length - 1];
     for (int i = 0, k = 0; i < distTo.length; i++) {
       if (i != source) {
-        result[k++] = distTo[i];
+        result[k++] = distTo[i] == Integer.MAX_VALUE ? -1 : distTo[i];
       }
     }
     return result;
