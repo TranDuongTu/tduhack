@@ -2,10 +2,7 @@ package com.tdu.hackerank;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,13 +11,17 @@ public class TriesTest {
 
   private static final Tries.Alphabet ALPHABET = new Tries.Alphabet() {
 
-    private final Map<Character, Integer> map = new HashMap<>();
+    private Character[] characters;
+    private final Map<Character, Integer> map = new LinkedHashMap<>();
 
     {
       final List<Character> characterList = new ArrayList<>();
       IntStream.range(97, 123).forEach(value -> characterList.add((char) value));
+      characters = new Character[characterList.size()];
       for (int i = 0; i < characterList.size(); i++) {
-        map.put(characterList.get(i), i);
+        final Character character = characterList.get(i);
+        map.put(character, i);
+        characters[i] = character;
       }
     }
 
@@ -32,6 +33,11 @@ public class TriesTest {
     @Override
     public int index(char character) {
       return map.get(character);
+    }
+
+    @Override
+    public Character[] characters() {
+      return characters;
     }
   };
 
@@ -69,5 +75,20 @@ public class TriesTest {
     assertThat(tries.get("abde")).isEqualTo(6);
     assertThat(tries.keys()).hasSize(7)
         .contains("a", "ab", "ac", "abc", "abd", "abde", "ace");
+  }
+
+  @Test
+  public void testLongestPrefixes() throws Exception {
+    final Tries<Integer> tries = new Tries<>(ALPHABET);
+    tries.put("a", 1);
+    tries.put("abcdddddef", 2);
+    tries.put("abcdddddfe", 1);
+    tries.put("acbd", 5);
+    assertThat(tries.longestPrefixOf("abcddd")).isEqualTo("a");
+    assertThat(tries.longestPrefixOf("abcdddiiiii")).isEqualTo("a");
+    assertThat(tries.longestPrefixOf("abcdddddefiiii")).isEqualTo("abcdddddef");
+    assertThat(tries.longestPrefixOf("acbiiii")).isEqualTo("a");
+    assertThat(tries.longestPrefixOf("acbdiiii")).isEqualTo("acbd");
+    assertThat(tries.longestPrefixOf("iii")).isEqualTo("");
   }
 }

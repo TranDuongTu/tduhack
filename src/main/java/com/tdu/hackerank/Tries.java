@@ -1,6 +1,8 @@
 package com.tdu.hackerank;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tries<V> {
   
@@ -28,12 +30,13 @@ public class Tries<V> {
   }
   
   public V get(final String key) {
-    return get(root, key, 0);
+    final Node node = get(root, key, 0);
+    return node == null ? null : node.value;
   }
 
-  private V get(Node node, String key, int d) {
+  private Node get(Node node, String key, int d) {
     if (node == null) return null;
-    if (d == key.length()) return node.value;
+    if (d == key.length()) return node;
     final char nextChar = key.charAt(d);
     final int child = alphabet.index(nextChar);
     return get(node.children[child], key, d + 1);
@@ -63,7 +66,8 @@ public class Tries<V> {
   }
 
   public boolean contains(final String key) {
-    return get(root, key, 0) != null;
+    final Node node = get(root, key, 0);
+    return node != null && node.value != null;
   }
   
   public boolean isEmpty() {
@@ -71,19 +75,39 @@ public class Tries<V> {
   }
   
   public String longestPrefixOf(final String s) {
-    return null;
+    final int length = search(root, s, 0, 0);
+    return s.substring(0, length);
   }
-  
-  public Iterable<String> keysWithPrefix(final String s) {
-    return null;
+
+  private int search(Node node, String key, int d, int length) {
+    if (node == null) return length;
+    if (node.value != null) length = d;
+    if (key.length() == d) return length;
+    final char nextChar = key.charAt(d);
+    final int child = alphabet.index(nextChar);
+    return search(node.children[child], key, d + 1, length);
   }
-  
+
+  public Iterable<String> keysWithPrefix(final String key) {
+    final List<String> result = new ArrayList<>();
+    collect(get(root, key, 0), key, result);
+    return result;
+  }
+
+  private void collect(Node node, String key, final List<String> list) {
+    if (node == null) return;
+    if (node.value != null) list.add(key);
+    for (int i = 0; i < alphabet.R(); i++) {
+      collect(node.children[i], key + alphabet.characters()[i], list);
+    }
+  }
+
   public int size() {
     return 0;
   }
   
   public Iterable<String> keys() {
-    return null;
+    return keysWithPrefix("");
   }
   
   private class Node {
@@ -94,5 +118,6 @@ public class Tries<V> {
   public interface Alphabet {
     int R();
     int index(final char character);
+    Character[] characters();
   }
 }
