@@ -5,158 +5,187 @@ import java.util.List;
 
 public class PRIM {
 
-  // Priority queue
-  private static int queueSize;
-  private static int[] queue, inverseQueue, keys;
-
-  // Graph
-  private static List<List<int[]>> graph;
-  private static int[] distTo;
-  private static int[][] edgeTo;
-  private static boolean[] marked;
-
   public static List<int[]> findMST(final List<int[]> input) {
-    initQueue(input.get(0)[0]);
-    initGraph(input);
+    final Graph graph = readGraph(input);
+    final int graphSize = graph.size();
+    final int source = graph.source();
+    final IndexHeap indexHeap = new IndexHeap(graphSize);
 
-    distTo[0] = 0;
-    insertQueue(0, distTo[0]);
-    final List<int[]> result = new ArrayList<>();
-    while (!isQueueEmpty()) {
-      final int u = pop();
+    final int[] distTo = new int[graphSize];
+    final int[] edgeTo = new int[graphSize];
+    final boolean[] marked = new boolean[graphSize];
+    for (int i = 0; i < distTo.length; i++) distTo[i] = Integer.MAX_VALUE;
+    distTo[source] = 0;
+
+    indexHeap.put(source, distTo[source]);
+    while (!indexHeap.isEmpty()) {
+      final int u = indexHeap.pop();
       marked[u] = true;
-
-      for (final int[] edge : graph.get(u)) {
-        final int v = edge[0];
-        final int w = edge[1];
-        if (!marked[v] && distTo[v] > w) {
-          distTo[v] = w;
-          edgeTo[v][0] = u;
-          edgeTo[v][1] = w;
-          if (queueContains(v)) {
-            decreaseKey(v, w);
+      for (final Edge edge : graph.adj(u)) {
+        final int v = edge.other(u);
+        if (!marked[v] && distTo[v] > edge.weight) {
+          distTo[v] = edge.weight;
+          edgeTo[v] = u;
+          if (indexHeap.contains(v)) {
+            indexHeap.decreaseKey(v, distTo[v]);
           } else {
-            insertQueue(v, w);
+            indexHeap.put(v, distTo[v]);
           }
         }
       }
     }
 
-    for (int i = 0; i < edgeTo.length; i++) {
-      if (edgeTo[i][0] != -1) {
-        result.add(new int[]{edgeTo[i][0], i, edgeTo[i][1]});
+    final List<int[]> result = new ArrayList<>();
+    for (int i = 0; i < distTo.length; i++) {
+      if (i != source) {
+        result.add(new int[]{edgeTo[i], i, distTo[i]});
       }
     }
     return result;
   }
 
-  private static void initGraph(List<int[]> input) {
+  private static Graph readGraph(List<int[]> input) {
     final int n = input.get(0)[0];
     final int m = input.get(0)[1];
-    graph = new ArrayList<>();
-    for (int i = 0; i < n; i++) {
-      graph.add(new ArrayList<>());
-    }
 
+    final int source = input.get(input.size() - 1)[0] - 1;
+    final Graph graph = new Graph(n, source);
     for (int i = 0; i < m; i++) {
       final int[] edge = input.get(i + 1);
       final int u = edge[0] - 1;
       final int v = edge[1] - 1;
       final int w = edge[2];
-      graph.get(u).add(new int[]{v, w});
-      graph.get(v).add(new int[]{u, w});
+      graph.addEdge(new Edge(u, v, w));
+    }
+    return graph;
+  }
+
+
+  private static class Graph {
+    private final List<Edge>[] adjList;
+    private final int source;
+
+    public Graph(final int n, final int source) {
+      adjList = new List[n];
+      for (int i = 0; i < n; i++) adjList[i] = new ArrayList<>();
+      this.source = source;
     }
 
-    distTo = new int[n];
-    marked = new boolean[n];
-    for (int i = 0; i < n; i++) {
-      distTo[i] = Integer.MAX_VALUE;
+    public int size() {
+      return adjList.length;
     }
 
-    edgeTo = new int[n][2];
-    for (int i = 0; i < n; i++) {
-      edgeTo[i][0] = -1;
+    public int source() {
+      return source;
     }
-  }
 
-  private static void initQueue(final int maxSize) {
-    queueSize = 0;
-    queue = new int[maxSize];
-    keys = new int[maxSize];
-    inverseQueue = new int[maxSize];
-    for (int i = 0; i < maxSize; i++) {
-      queue[i] = -1; 
-      keys[i] = -1;
-      inverseQueue[i] = -1;
+    public List<Edge> adj(int u) {
+      return adjList[u];
     }
-  }
 
-  private static void insertQueue(final int u, final int key) {
-    queue[queueSize] = u;
-    inverseQueue[u] = queueSize;
-    keys[u] = key;
-    queueSize++;
-    swim(inverseQueue[u]);
-  }
-
-  private static int pop() {
-    final int min = queue[0];
-    swap(0, queueSize - 1);
-    queueSize--;
-    assert queue[queueSize] == min;
-    assert inverseQueue[min] == queueSize;
-    queue[queueSize] = -1;
-    inverseQueue[min] = -1;
-    keys[min] = -1;
-    sink(0);
-    return min;
-  }
-
-  private static boolean isQueueEmpty() {
-    return queueSize == 0;
-  }
-  
-  private static boolean queueContains(final int u) {
-    return inverseQueue[u] != -1;
-  }
-  
-  private static void decreaseKey(final int u, final int key) {
-    keys[u] = key;
-    swim(inverseQueue[u]);
-  }
-
-  private static void swim(final int i) {
-    final int parent = (i - 1) / 2;
-    if (i > 0 && keys[queue[i]] < keys[queue[parent]]) {
-      swap(i, parent);
-      swim(parent);
+    public void addEdge(Edge edge) {
+      adjList[edge.from].add(edge);
+      adjList[edge.to].add(edge);
     }
   }
 
-  private static void sink(final int i) {
-    final int left = 2 * i + 1;
-    final int right = left + 1;
+  private static class IndexHeap {
+    private final int[] queue, inverseQueue, keys;
+    private int size;
 
-    int smallest = i;
-    if (left < queueSize && keys[queue[left]] < keys[queue[smallest]]) {
-      smallest = left;
+    public IndexHeap(int maxSize) {
+      queue = new int[maxSize];
+      inverseQueue = new int[maxSize];
+      keys = new int[maxSize];
+      for (int i = 0; i < maxSize; i++) queue[i] = inverseQueue[i] = keys[i] = -1;
     }
 
-    if (right < queueSize && keys[queue[right]] < keys[queue[smallest]]) {
-      smallest = right;
+    public void put(int value, int key) {
+      queue[size] = value;
+      keys[value] = key;
+      size++;
+      swim(size - 1);
     }
 
-    if (smallest != i) {
-      swap(smallest, i);
-      sink(smallest);
+    private void swim(int i) {
+      while (i > 0) {
+        final int parent = (i - 1) / 2;
+        if (less(i, parent)) {
+          swap(i, parent);
+          i = parent;
+        } else {
+          break;
+        }
+      }
+    }
+
+    private void swap(int i, int j) {
+      final int tmp = queue[i];
+      queue[i] = queue[j];
+      queue[j] = tmp;
+      inverseQueue[queue[i]] = i;
+      inverseQueue[queue[j]] = j;
+    }
+
+    private boolean less(int i, int j) {
+      return keys[queue[i]] < keys[queue[j]];
+    }
+
+    public boolean isEmpty() {
+      return size == 0;
+    }
+
+    public int pop() {
+      final int min = queue[0];
+      swap(0, size - 1);
+      size--;
+      queue[size] = -1;
+      inverseQueue[min] = -1;
+      keys[min] = -1;
+      sink(0);
+      return min;
+    }
+
+    private void sink(int i) {
+      final int left = i * 2 + 1;
+      final int right = left + 1;
+
+      int smallest = i;
+      if (left < size && less(left, smallest)) {
+        smallest = left;
+      }
+
+      if (right < size && less(right, smallest)) {
+        smallest = right;
+      }
+
+      if (smallest != i) {
+        swap(smallest, i);
+        sink(smallest);
+      }
+    }
+
+    public boolean contains(int value) {
+      return inverseQueue[value] != -1;
+    }
+
+    public void decreaseKey(int value, int key) {
+      keys[value] = key;
+      swim(inverseQueue[value]);
     }
   }
 
-  private static void swap(int i, int j) {
-    int swap = queue[i];
-    queue[i] = queue[j];
-    queue[j] = swap;
-    inverseQueue[queue[i]] = i;
-    inverseQueue[queue[j]] = j;
+  private static class Edge {
+    private final int from, to, weight;
+
+    public Edge(final int from, final int to, final int weight) {
+      this.from = from;
+      this.to = to;
+      this.weight = weight;
+    }
+
+    public int other(int u) {
+      return u == from ? to : from;
+    }
   }
 }
