@@ -2,8 +2,8 @@ package com.tdu.hackerank;
 
 import org.junit.Test;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,17 +11,17 @@ public class TriesTest {
 
   private static final Tries.Alphabet ALPHABET = new Tries.Alphabet() {
 
-    private Character[] characters;
+    private char[] characters;
     private final Map<Character, Integer> map = new LinkedHashMap<>();
+    private static final int MIN_CHAR = 97, MAX_CHAR = 122;
 
     {
-      final List<Character> characterList = new ArrayList<>();
-      IntStream.range(97, 123).forEach(value -> characterList.add((char) value));
-      characters = new Character[characterList.size()];
-      for (int i = 0; i < characterList.size(); i++) {
-        final Character character = characterList.get(i);
-        map.put(character, i);
-        characters[i] = character;
+      characters = new char[MAX_CHAR - MIN_CHAR + 1];
+      for (int i = MIN_CHAR, index = 0; i <= MAX_CHAR; i++) {
+        final char character = (char) i;
+        characters[index] = character;
+        map.put(character, index);
+        index++;
       }
     }
 
@@ -36,8 +36,8 @@ public class TriesTest {
     }
 
     @Override
-    public Character[] characters() {
-      return characters;
+    public char charAt(int index) {
+      return characters[index];
     }
   };
 
@@ -90,5 +90,34 @@ public class TriesTest {
     assertThat(tries.longestPrefixOf("acbiiii")).isEqualTo("a");
     assertThat(tries.longestPrefixOf("acbdiiii")).isEqualTo("acbd");
     assertThat(tries.longestPrefixOf("iii")).isEqualTo("");
+  }
+
+  @Test
+  public void testPutAndGet() throws Exception {
+    final Tries<Integer> tries = new Tries<>(ALPHABET);
+    tries.put("a", 1);
+    tries.put("abc", 2);
+    tries.put("abd", 3);
+    assertThat(tries.get("a")).isEqualTo(1);
+    assertThat(tries.get("ab")).isNull();
+    assertThat(tries.get("abc")).isEqualTo(2);
+    assertThat(tries.get("abd")).isEqualTo(3);
+    assertThat(tries.get("b")).isNull();
+    tries.put("bc", 5);
+    assertThat(tries.get("b")).isNull();
+    tries.put("b", 6);
+    assertThat(tries.get("b")).isEqualTo(6);
+  }
+
+  @Test
+  public void testSize() throws Exception {
+    final Tries<Integer> tries = new Tries<>(ALPHABET);
+    tries.put("a", 1);
+    tries.put("abcde", 2);
+    tries.put("abcdf", 3);
+    tries.put("abcdef", 4);
+    assertThat(tries.size()).isEqualTo(4);
+    tries.delete("a");
+    assertThat(tries.size()).isEqualTo(3);
   }
 }

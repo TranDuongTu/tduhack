@@ -16,19 +16,19 @@ public class Tries<V> {
   public void put(final String key, final V value) {
     root = put(root, key, value, 0);
   }
-  
-  private Node put(Node node, final String key, final V value, final int d) {
+
+  private Node put(Node node, String key, V value, int d) {
     if (node == null) node = new Node();
-    if (key.length() == d) {
+    if (d == key.length()) {
       node.value = value;
       return node;
     }
-    final char nextChar = key.charAt(d);
-    final int child = alphabet.index(nextChar);
-    node.children[child] = put(node.children[child], key, value, d + 1);
+    final Character nextChar = key.charAt(d);
+    final int index = alphabet.index(nextChar);
+    node.children[index] = put(node.children[index], key, value, d + 1);
     return node;
   }
-  
+
   public V get(final String key) {
     final Node node = get(root, key, 0);
     return node == null ? null : node.value;
@@ -36,10 +36,10 @@ public class Tries<V> {
 
   private Node get(Node node, String key, int d) {
     if (node == null) return null;
-    if (d == key.length()) return node;
-    final char nextChar = key.charAt(d);
-    final int child = alphabet.index(nextChar);
-    return get(node.children[child], key, d + 1);
+    if (key.length() == d) return node;
+    final Character nextChar = key.charAt(d);
+    final int index = alphabet.index(nextChar);
+    return get(node.children[index], key, d + 1);
   }
 
   public void delete(final String key) {
@@ -51,14 +51,14 @@ public class Tries<V> {
     if (key.length() == d) {
       node.value = null;
     } else {
-      final char nextChar = key.charAt(d);
-      final int child = alphabet.index(nextChar);
-      node.children[child] = delete(node.children[child], key, d + 1);
+      final Character nextChar = key.charAt(d);
+      final int index = alphabet.index(nextChar);
+      node.children[index] = delete(node.children[index], key, d + 1);
     }
     
     if (node.value != null) return node;
-    for (int child = 0; child < alphabet.R(); child++) {
-      if (node.children[child] != null) {
+    for (int i = 0; i < alphabet.R(); i++) {
+      if (node.children[i] != null) {
         return node;
       }
     }
@@ -66,8 +66,7 @@ public class Tries<V> {
   }
 
   public boolean contains(final String key) {
-    final Node node = get(root, key, 0);
-    return node != null && node.value != null;
+    return get(key) != null;
   }
   
   public boolean isEmpty() {
@@ -79,13 +78,13 @@ public class Tries<V> {
     return s.substring(0, length);
   }
 
-  private int search(Node node, String key, int d, int length) {
+  private int search(Node node, String s, int d, int length) {
     if (node == null) return length;
     if (node.value != null) length = d;
-    if (key.length() == d) return length;
-    final char nextChar = key.charAt(d);
-    final int child = alphabet.index(nextChar);
-    return search(node.children[child], key, d + 1, length);
+    if (s.length() == d) return length;
+    final char nextChar = s.charAt(d);
+    final int index = alphabet.index(nextChar);
+    return search(node.children[index], s, d + 1, length);
   }
 
   public Iterable<String> keysWithPrefix(final String key) {
@@ -94,18 +93,28 @@ public class Tries<V> {
     return result;
   }
 
-  private void collect(Node node, String key, final List<String> list) {
+  private void collect(Node node, final String key, List<String> keys) {
     if (node == null) return;
-    if (node.value != null) list.add(key);
-    for (int i = 0; i < alphabet.R(); i++) {
-      collect(node.children[i], key + alphabet.characters()[i], list);
+    if (node.value != null) keys.add(key);
+    for (int i = 0; i < node.children.length; i++) {
+      collect(node.children[i], key + alphabet.charAt(i), keys);
     }
   }
 
   public int size() {
-    return 0;
+    return size(root);
   }
-  
+
+  private int size(Node node) {
+    if (node == null) return 0;
+    int count = 0;
+    if (node.value != null) count++;
+    for (int i = 0; i < alphabet.R(); i++) {
+      count += size(node.children[i]);
+    }
+    return count;
+  }
+
   public Iterable<String> keys() {
     return keysWithPrefix("");
   }
@@ -118,6 +127,6 @@ public class Tries<V> {
   public interface Alphabet {
     int R();
     int index(final char character);
-    Character[] characters();
+    char charAt(final int index);
   }
 }
