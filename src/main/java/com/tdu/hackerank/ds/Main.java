@@ -1,4 +1,4 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

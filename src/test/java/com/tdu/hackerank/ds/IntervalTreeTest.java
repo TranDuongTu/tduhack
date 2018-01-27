@@ -1,10 +1,10 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.tdu.hackerank.IntervalTree.Interval;
+import static com.tdu.hackerank.ds.IntervalTree.Interval;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class IntervalTreeTest {

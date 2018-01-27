@@ -1,4 +1,4 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;

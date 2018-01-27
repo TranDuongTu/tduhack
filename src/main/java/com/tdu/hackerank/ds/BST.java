@@ -1,4 +1,4 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 public class BST<Key extends Comparable<Key>, Value> {
 

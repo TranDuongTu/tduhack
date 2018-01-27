@@ -1,4 +1,4 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 import java.util.Set;
 import java.util.stream.Collectors;

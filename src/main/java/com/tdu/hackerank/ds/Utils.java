@@ -1,4 +1,4 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
 public class Utils {
   public static void swap(final int[] array, final int i, final int j) {

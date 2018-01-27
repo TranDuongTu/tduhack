@@ -1,5 +1,7 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
+import com.tdu.hackerank.Helpers;
+import com.tdu.hackerank.ds.Heap;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,5 +1,6 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
+import com.tdu.hackerank.ds.StringSort;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

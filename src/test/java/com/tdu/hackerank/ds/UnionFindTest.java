@@ -1,5 +1,6 @@
-package com.tdu.hackerank;
+package com.tdu.hackerank.ds;
 
+import com.tdu.hackerank.ds.UnionFind;
 import org.junit.Test;
 
 import java.util.Collections;
