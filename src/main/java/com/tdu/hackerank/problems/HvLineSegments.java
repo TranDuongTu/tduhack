@@ -101,11 +101,7 @@ public class HvLineSegments {
     @Override
     public int compareTo(Event other) {
       if (point.x == other.point.x) {
-        if (segment.isVertical() && other.segment.isVertical()) {
-          return 0;
-        } else {
-          return segment.isVertical() ? -1 : 1;
-        }
+        return -Boolean.compare(segment.isVertical(), other.segment.isVertical());
       }
       return point.compareTo(other.point);
     }
