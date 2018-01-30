@@ -5,14 +5,33 @@ import java.util.List;
 
 public class Dijkstra {
 
-  private static List<List<int[]>> graph;
-  private static int[] distTo;
-  private static boolean[] marked;
-  private static int source;
-
   public static int[] shortestDistancesFromSource(final int[][] input) {
-    readGraph(input);
-    runDijkstra();
+    final Graph graph = readGraph(input);
+    final int[] distTo = new int[graph.size()];
+    final boolean[] marked = new boolean[graph.size()];
+
+    final int source = graph.getSource();
+    for (int i = 0; i < distTo.length; i++) distTo[i] = Integer.MAX_VALUE;
+    distTo[source] = 0;
+
+    final IndexHeap indexHeap = new IndexHeap(graph.size());
+    indexHeap.insert(source, distTo[source]);
+
+    while (!indexHeap.isEmpty()) {
+      final int u = indexHeap.pop();
+      marked[u] = true;
+      for (final Edge edge : graph.adj(u)) {
+        final int v = edge.other(u);
+        if (!marked[v] && distTo[u] + edge.w < distTo[v]) {
+          distTo[v] = distTo[u] + edge.w;
+          if (indexHeap.contains(v)) {
+            indexHeap.decreaseKey(v, distTo[v]);
+          } else {
+            indexHeap.insert(v, distTo[v]);
+          }
+        }
+      }
+    }
 
     final int[] result = new int[distTo.length - 1];
     for (int i = 0, k = 0; i < distTo.length; i++) {
@@ -23,57 +42,73 @@ public class Dijkstra {
     return result;
   }
 
-  private static void runDijkstra() {
-    final Queue queue = new Queue(graph.size());
-    queue.insert(source, 0);
+  private static Graph readGraph(int[][] input) {
+    final int N = input[0][0];
+    final int M = input[0][1];
 
-    while (!queue.isEmpty()) {
-      final int u = queue.pop();
-      marked[u] = true;
-      for (final int[] edge : graph.get(u)) {
-        final int v = edge[0];
-        final int w = edge[1];
-        if (!marked[v] && distTo[v] > distTo[u] + w) {
-          distTo[v] = distTo[u] + w;
-          if (queue.contains(v)) {
-            queue.decreaseKey(v, distTo[v]);
-          } else {
-            queue.insert(v, distTo[v]);
-          }
-        }
-      }
+    final Graph graph = new Graph(N);
+    for (int i = 0; i < M; i++) {
+      final int[] edge = input[i + 1];
+      final int u = edge[0] - 1;
+      final int v = edge[1] - 1;
+      final int w = edge[2];
+      graph.addEdge(new Edge(u, v, w));
+    }
+    graph.setSource(input[input.length - 1][0] - 1);
+    return graph;
+  }
+
+  private static class Graph {
+    private List<Edge>[] adjList;
+    private int source;
+
+    public Graph(int n) {
+      this.adjList = new List[n];
+      for (int i = 0; i < n; i++) adjList[i] = new ArrayList<>();
+    }
+
+    public void addEdge(Edge edge) {
+      adjList[edge.from].add(edge);
+      adjList[edge.to].add(edge);
+    }
+
+    public void setSource(int source) {
+      this.source = source;
+    }
+
+    public int size() {
+      return adjList.length;
+    }
+
+    public int getSource() {
+      return source;
+    }
+
+    public Iterable<Edge> adj(int u) {
+      return adjList[u];
     }
   }
 
-  private static void readGraph(int[][] input) {
-    final int n = input[0][0], m = input[0][1];
-    graph = new ArrayList<>();
-    for (int i = 0; i < n; i++) {
-      graph.add(new ArrayList<>());
+  private static class Edge {
+    public final int from, to, w;
+
+    public Edge(final int from, final int to, final int w) {
+      this.from = from;
+      this.to = to;
+      this.w = w;
     }
 
-    for (int i = 0; i < m; i++) {
-      final int u = input[i + 1][0] - 1;
-      final int v = input[i + 1][1] - 1;
-      final int w = input[i + 1][2];
-      graph.get(u).add(new int[]{v, w});
-      graph.get(v).add(new int[]{u, w});
+    public int other(int u) {
+      return u == from ? to : from;
     }
-
-    source = input[input.length - 1][0] - 1;
-    distTo = new int[n];
-    for (int i = 0; i < distTo.length; i++) distTo[i] = Integer.MAX_VALUE;
-    distTo[source] = 0;
-
-    marked = new boolean[n];
   }
 
-  private static class Queue {
+  private static class IndexHeap {
 
     private final int[] queue, inverseQueue, keys;
     private int size;
 
-    public Queue(final int maxSize) {
+    public IndexHeap(final int maxSize) {
       queue = new int[maxSize];
       inverseQueue = new int[maxSize];
       keys = new int[maxSize];
