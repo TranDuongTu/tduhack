@@ -16,4 +16,24 @@ public class RotateArray {
       }
     }
   }
+  
+  public static int[][] spiralArray(final int n) {
+    final int[][] result = new int[n][n];
+    
+    int startRow = 0, endRow = n - 1, startCol = 0, endCol = n - 1;
+    int count = 1;
+    
+    while (startRow <= endRow && startCol <= endCol) {
+      for (int i = startCol; i <= endCol; i++) result[startRow][i] = count++;
+      startRow++;
+      for (int i = startRow; i <= endRow; i++) result[i][endCol] = count++;
+      endCol--;
+      for (int i = endCol; i >= startCol; i--) result[endRow][i] = count++;
+      endRow--;
+      for (int i = endRow; i >= startRow; i--) result[i][startCol] = count++;
+      startCol++;
+    }
+    
+    return result;
+  }
 }

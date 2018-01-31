@@ -1,9 +1,10 @@
 package com.tdu.hackerank.problems;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.Random;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RotateArrayTest {
 
@@ -21,13 +22,13 @@ public class RotateArrayTest {
     }
 
     RotateArray.rotateRight(array);
-    Assertions.assertThat(array).isNotEqualTo(expected);
+    assertThat(array).isNotEqualTo(expected);
     RotateArray.rotateRight(array);
-    Assertions.assertThat(array).isNotEqualTo(expected);
+    assertThat(array).isNotEqualTo(expected);
     RotateArray.rotateRight(array);
-    Assertions.assertThat(array).isNotEqualTo(expected);
+    assertThat(array).isNotEqualTo(expected);
     RotateArray.rotateRight(array);
-    Assertions.assertThat(array).isEqualTo(expected);
+    assertThat(array).isEqualTo(expected);
   }
 
   @Test
@@ -47,13 +48,37 @@ public class RotateArrayTest {
       }
     }
     RotateArray.rotateRight(array);
-    Assertions.assertThat(array)
+    assertThat(array)
         .isEqualTo(new int[][]{
             {21, 16, 11, 6, 1},
             {22, 17, 12, 7, 2},
             {23, 18, 13, 8, 3},
             {24, 19, 14, 9, 4},
             {25, 20, 15, 10, 5}
+        });
+  }
+
+  @Test
+  public void testSpiralArray() throws Exception {
+    assertThat(RotateArray.spiralArray(2))
+        .isEqualTo(new int[][] {
+            {1, 2},
+            {4, 3}
+        });
+    assertThat(RotateArray.spiralArray(3))
+        .isEqualTo(new int[][] {
+            {1, 2, 3},
+            {8, 9, 4},
+            {7, 6, 5}
+        });
+
+    assertThat(RotateArray.spiralArray(5))
+        .isEqualTo(new int[][] {
+            {1, 2, 3, 4, 5},
+            {16, 17, 18, 19, 6},
+            {15, 24, 25, 20, 7},
+            {14, 23, 22, 21, 8},
+            {13, 12, 11, 10, 9}
         });
   }
 }
