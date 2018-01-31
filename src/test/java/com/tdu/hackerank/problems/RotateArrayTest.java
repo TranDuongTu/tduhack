@@ -1,6 +1,5 @@
-package com.tdu.hackerank.ds;
+package com.tdu.hackerank.problems;
 
-import com.tdu.hackerank.ds.RotateArray;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

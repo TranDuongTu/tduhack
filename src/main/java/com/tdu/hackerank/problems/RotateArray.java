@@ -1,4 +1,4 @@
-package com.tdu.hackerank.ds;
+package com.tdu.hackerank.problems;
 
 public class RotateArray {
   public static void rotateRight(final int[][] array) {
