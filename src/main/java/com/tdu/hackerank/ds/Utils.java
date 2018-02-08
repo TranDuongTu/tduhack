@@ -1,10 +1,18 @@
 package com.tdu.hackerank.ds;
 
+import java.util.List;
+
 public class Utils {
   public static void swap(final int[] array, final int i, final int j) {
     final int tmp = array[i];
     array[i] = array[j];
     array[j] = tmp;
+  }
+  
+  public static void swap(final List<Integer> numbers, final int i, final int j) {
+    final int tmp = numbers.get(i);
+    numbers.set(i, numbers.get(j));
+    numbers.set(j, tmp);
   }
   
   public static int max(final int[] array) {
