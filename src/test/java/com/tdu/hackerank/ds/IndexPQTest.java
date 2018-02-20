@@ -1,6 +1,5 @@
 package com.tdu.hackerank.ds;
 
-import com.tdu.hackerank.ds.IndexPQ;
 import org.junit.Before;
 import org.junit.Test;
 

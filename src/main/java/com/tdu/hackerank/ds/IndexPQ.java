@@ -2,18 +2,15 @@ package com.tdu.hackerank.ds;
 
 public class IndexPQ {
   
-  private final int[] queue, inverseQueue;
-  private final int[] keys;
-  private int size = 0;
+  private int[] queue, inverseQueue, keys;
+  private int size;
   
   public IndexPQ(final int maxSize) {
     queue = new int[maxSize];
     inverseQueue = new int[maxSize];
     keys = new int[maxSize];
     for (int i = 0; i < maxSize; i++) {
-      queue[i] = -1;
-      inverseQueue[i] = -1;
-      keys[i] = -1;
+      queue[i] = inverseQueue[i] = keys[i] = -1;
     }
   }
   
@@ -25,16 +22,33 @@ public class IndexPQ {
     swim(inverseQueue[i]);
   }
 
-  private void swim(int index) {
-    while (index > 0) {
-      final int parentIndex = (index - 1) / 2;
-      if (keys[queue[index]] < keys[queue[parentIndex]]) {
-        swap(index, parentIndex);
-        index = parentIndex;
+  private void swim(int i) {
+    while (i > 0) {
+      final int parent = (i - 1) / 2;
+      if (less(i, parent)) {
+        swap(i, parent);
+        i = parent;
       } else {
         break;
       }
     }
+  }
+
+  private void swap(int i, int j) {
+    final int tmp = queue[i];
+    queue[i] = queue[j];
+    queue[j] = tmp;
+    inverseQueue[queue[i]] = i;
+    inverseQueue[queue[j]] = j;
+  }
+
+  private boolean less(int i, int j) {
+    return keys[queue[i]] < keys[queue[j]];
+  }
+
+  public void increaseKey(final int i, final int key) {
+    keys[i] = key;
+    sink(inverseQueue[i]);
   }
 
   private void sink(int i) {
@@ -42,11 +56,11 @@ public class IndexPQ {
     final int right = left + 1;
     
     int smallest = i;
-    if (left < size && keys[queue[left]] < keys[queue[smallest]]) {
+    if (left < size && less(left, smallest)) {
       smallest = left;
     }
     
-    if (right < size && keys[queue[right]] < keys[queue[smallest]]) {
+    if (right < size && less(right, smallest)) {
       smallest = right;
     }
     
@@ -56,19 +70,6 @@ public class IndexPQ {
     }
   }
 
-  private void swap(int i, int j) {
-    int temp = queue[i];
-    queue[i] = queue[j];
-    queue[j] = temp;
-    inverseQueue[queue[i]] = i;
-    inverseQueue[queue[j]] = j;
-  }
-
-  public void increaseKey(final int i, final int key) {
-    keys[i] = key;
-    sink(inverseQueue[i]);
-  }
-  
   public void decreaseKey(final int i, final int key) {
     keys[i] = key;
     swim(inverseQueue[i]);
