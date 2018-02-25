@@ -7,31 +7,28 @@
   <groupId>com.tdu.tduhack</groupId>
   <artifactId>tduhack</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.6.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
-      <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld.se</groupId>
-      <artifactId>weld-se-shaded</artifactId>
-      <version>3.0.0.Final</version>
-    </dependency>
-  </dependencies>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>tduhack-dsa</module>
+    <module>tduhack-javaee</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.6.2</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <plugins>
