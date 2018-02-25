@@ -18,6 +18,16 @@ public class Steps {
   }
 
   public char[][] buildPyramid(final int n) {
-    return new char[][]{};
+    final int width = 2 * n - 1;
+    final char[][] result = new char[n][width];
+    final int mid = (width) / 2;
+    for (int row = 1; row <= n; row++) {
+      for (int col = 0; col < width; col++) result[row - 1][col] = ' ';
+      for (int col = 0; col < row; col++) {
+        result[row - 1][mid + col] = '#';
+        result[row - 1][mid - col] = '#';
+      }
+    }
+    return result;
   }
 }
