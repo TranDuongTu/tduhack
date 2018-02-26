@@ -4,6 +4,9 @@ import com.tdu.tduhack.dsa.Utils;
 
 import java.util.List;
 
+/**
+ * https://www.geeksforgeeks.org/find-the-missing-number/
+ */
 public class MissingNumber {
   
   public static int findMissingNumberLinear(final List<Integer> numbers) {

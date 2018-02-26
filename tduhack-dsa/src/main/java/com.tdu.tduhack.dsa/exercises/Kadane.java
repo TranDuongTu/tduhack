@@ -1,19 +1,22 @@
 package com.tdu.tduhack.dsa.exercises;
 
+/**
+ * https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/
+ */
 public class Kadane {
   
   public static int maximumSubArraySum(final int[] array) {
-    int result = Integer.MIN_VALUE, maxSoFar = 0;
+    int maxValue = Integer.MIN_VALUE, maxSoFar = 0;
     for (int i = 0; i < array.length; i++) {
       maxSoFar += array[i];
-      if (result < maxSoFar) {
-        result = maxSoFar;
+      if (maxSoFar > maxValue) {
+        maxValue = maxSoFar;
       }
+      
       if (maxSoFar < 0) {
         maxSoFar = 0;
       }
     }
-    
-    return result;
+    return maxValue;
   }
 }

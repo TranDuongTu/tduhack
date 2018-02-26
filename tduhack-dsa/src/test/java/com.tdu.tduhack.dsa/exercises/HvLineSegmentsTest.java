@@ -14,7 +14,7 @@ import static com.tdu.tduhack.dsa.exercises.HvLineSegments.HvSegment;
 import static com.tdu.tduhack.dsa.exercises.HvLineSegments.Point;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "HV line segments", level = 3)
+@Problem(name = "HV line segments", level = 5)
 public class HvLineSegmentsTest {
   
   private static final String TEST_FOLDER = "/HvLines";

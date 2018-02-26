@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Missing number", level = 2)
+@Problem(name = "Missing number", level = 1)
 public class MissingNumberTest {
 
   @Test
