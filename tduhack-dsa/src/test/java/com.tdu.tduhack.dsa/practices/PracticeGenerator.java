@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.reflections.Reflections;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;

@@ -6,25 +6,27 @@ import com.tdu.tduhack.dsa.Utils;
 public class KthSmallestElement {
   
   public static int findSmallest(final int[] array, final int k) {
-    return findSmallest(array, 0, array.length - 1, k);
+    return quickFind(array, 0, array.length - 1, k - 1);
   }
 
-  private static int findSmallest(int[] array, int from, int to, int k) {
-    if (from < to && k >= from && k <= to) {
-      final int pivot = partition(array, from, to);
-      if (k - 1 == pivot) return array[pivot];
-      if (k - 1 < pivot) return findSmallest(array, from, pivot, k);
-      return findSmallest(array, pivot + 1, to, k);
+  private static int quickFind(int[] array, int from, int to, int k) {
+    if (from < to) {
+      final int p = partition(array, from, to);
+      return k <= p ? quickFind(array, from, p, k) : quickFind(array, p + 1, to, k);
     }
-    return -1;
+    return from == k ? array[from] : -1;
   }
 
   private static int partition(int[] array, int from, int to) {
-    int i = from - 1, j = to + 1;
-    int pivot = array[from];
+    int pivot = array[from], i = from - 1, j = to + 1;
     while (true) {
-      do { i++; } while (array[i] < pivot);
-      do { j--; } while (array[j] > pivot);
+      do {
+        i++;
+      } while (array[i] < pivot);
+      
+      do {
+        j--;
+      } while (array[j] > pivot);
       
       if (i >= j) {
         return j;

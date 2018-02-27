@@ -1,0 +1,5 @@
+Missing number
+Kadane
+Kth Smallest element
+Sort algorithms
+Minimum Spanning Tree
