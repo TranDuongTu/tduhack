@@ -1,5 +1,2 @@
-Missing number
-Kadane
-Kth Smallest element
+Binary Search Tree
 Sort algorithms
-Minimum Spanning Tree
