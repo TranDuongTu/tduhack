@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ValidStringTest {
 
   @Test
-  public void testValidString() throws Exception {
+  public void testValidString() {
     Assertions.assertThat(ValidString.isValid("hfchdkkbfifgbgebfaahijchgeeeiagkadjfcbekbdaifchkjfejckbiiihegacfbchdihkgbkbddgaefhkdgccjejjaajgijdkd")).isTrue();
     Assertions.assertThat(ValidString.isValid("aabbcc")).isTrue();
     Assertions.assertThat(ValidString.isValid("baacdd")).isFalse();

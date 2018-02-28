@@ -2,83 +2,73 @@ package com.tdu.tduhack.dsa.algorithms;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IntervalTree {
-  
+
   private Node root;
-  
+
   public boolean isEmpty() {
     return root == null;
   }
-  
-  public void put(final Interval interval) {
-    root = put(root, interval);
+
+  public void put(final int from, final int to) {
+    root = put(root, new Interval(from, to));
   }
 
-  private Node put(Node node, Interval interval) {
-    if (node == null) return new Node(interval, interval.to);
-    if (shouldGoLeft(node, interval)) {
+  private Node put(final Node node, final Interval interval) {
+    if (node == null) return new Node(interval);
+
+    if (interval.compareTo(node.value) < 0) {
       node.left = put(node.left, interval);
     } else {
       node.right = put(node.right, interval);
     }
-    node.maxPoint = maxPoint(node.right);
+
+    node.max = max(node);
     return node;
   }
-  
-  private int maxPoint(final Node node) {
-    if (node == null) return 0;
-    return Math.max(Math.max(maxPoint(node.left), maxPoint(node.right)), node.interval.to);
+
+  private int max(final Node node) {
+    return node == null ? 0 : Math.max(node.max, Math.max(max(node.left), max(node.right)));
   }
 
-  public List<Interval> findOverlaps(final Interval interval) {
-    final List<Interval> list = new ArrayList<>();
-    findOverlaps(root, interval, list);
-    return list;
+  public List<int[]> findOverlaps(final int from, final int to) {
+    final List<Interval> overlaps = new ArrayList<>();
+    findOverlaps(root, new Interval(from, to), overlaps);
+    return overlaps.stream().map(i -> new int[]{i.from, i.to}).collect(Collectors.toList());
   }
 
-  private void findOverlaps(Node node, Interval interval, final List<Interval> list) {
-    if (node == null) return;
-    if (node.interval.isOverlap(interval)) list.add(node.interval);
-    if (shouldGoLeft(node, interval)) {
-      findOverlaps(node.left, interval, list);
-    } else {
-      findOverlaps(node.right, interval, list);
-    }
-  }
-  
   private boolean shouldGoLeft(final Node node, final Interval interval) {
-    return node.left != null && node.left.maxPoint < interval.from;
+    return node.left != null && node.left.max >= interval.from;
   }
 
-  public static class Interval implements Comparable<Interval> {
+  private boolean findOverlaps(Node node, Interval interval, final List<Interval> overlaps) {
+    boolean result = false;
+    if (node == null) return false;
+    if (interval.overlap(node.value)) {
+      overlaps.add(node.value);
+      result = true;
+    }
+
+    boolean leftFound = false;
+    if (node.left != null && node.left.max >= interval.from)
+      leftFound = findOverlaps(node.left, interval, overlaps);
+    if (leftFound || node.left == null || node.left.max < interval.from)
+      result |= findOverlaps(node.right, interval, overlaps);
+    return result || leftFound;
+  }
+
+  private static class Interval implements Comparable<Interval> {
     public final int from, to;
+
     public Interval(final int from, final int to) {
-      assert from < to;
       this.from = from;
       this.to = to;
     }
-    
-    public int length() {
-      return to - from;
-    }
-    
-    public boolean isOverlap(final Interval other) {
-      return other.to >= this.from && other.from <= this.to;
-    }
-    
-    public Interval intersection(final Interval other) {
-      if (!isOverlap(other)) {
-        return null;
-      }
-      return new Interval(Math.max(from, other.from), Math.min(to, other.to));
-    }
-    
-    public Interval union(final Interval other) {
-      if (!isOverlap(other)) {
-        return null;
-      }
-      return new Interval(Math.min(from, other.from), Math.max(to, other.to));
+
+    public boolean overlap(final Interval other) {
+      return to >= other.from && from <= other.to;
     }
 
     @Override
@@ -92,13 +82,19 @@ public class IntervalTree {
     }
   }
 
-  private class Node {
-    public Interval interval;
+  private static class Node {
+    public Interval value;
+    public int max;
     public Node left, right;
-    public int maxPoint;
-    public Node(final Interval interval, final int maxPoint) {
-      this.interval = interval;
-      this.maxPoint = maxPoint;
+
+    public Node(final Interval value) {
+      this.value = value;
+      this.max = value.to;
+    }
+
+    @Override
+    public String toString() {
+      return value.toString();
     }
   }
 }
