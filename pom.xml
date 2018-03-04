@@ -13,6 +13,7 @@
     <module>tduhack-dsa</module>
     <module>tduhack-javaee</module>
     <module>tduhack-scala</module>
+    <module>tduhack-dsa-endpoint</module>
   </modules>
 
   <dependencyManagement>
