@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>tduhack</artifactId>
-    <groupId>com.tdu.tduhack</groupId>
+    <groupId>com.tduhack</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <packaging>jar</packaging>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.tdu.tduhack.javaee</groupId>
+  <groupId>com.tduhack.javaee</groupId>
   <artifactId>tduhack-javaee</artifactId>
 
   <dependencies>
