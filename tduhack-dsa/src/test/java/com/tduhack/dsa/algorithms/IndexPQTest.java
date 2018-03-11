@@ -1,12 +1,10 @@
 package com.tduhack.dsa.algorithms;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Indexed priority Queue", level = 3)
 public class IndexPQTest {
   
   private IndexPQ queue;

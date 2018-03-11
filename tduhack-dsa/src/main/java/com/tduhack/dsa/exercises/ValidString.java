@@ -1,5 +1,7 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 /**
  * https://www.hackerrank.com/challenges/sherlock-and-valid-string/problem
  */
+@ProblemAnnotation(name = "Valid string", level = 2)
 public class ValidString {
   
   public static boolean isValid(final String s) {

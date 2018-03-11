@@ -1,11 +1,9 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Separate numbers", level = 2)
 public class SeparateNumbersStringTest {
 
   @Test

@@ -1,5 +1,8 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Equilibrium Point", level = 1)
 public class EquilibriumPoint {
   
   public static int findEquilibrium(final int[] array) {

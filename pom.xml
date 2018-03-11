@@ -14,6 +14,7 @@
     <module>tduhack-javaee</module>
     <module>tduhack-scala</module>
     <module>tduhack-dsa-endpoint</module>
+      <module>tduhack-common</module>
   </modules>
 
   <dependencyManagement>

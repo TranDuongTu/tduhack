@@ -1,5 +1,6 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
 import com.tduhack.dsa.Utils;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 /**
  * https://www.geeksforgeeks.org/find-the-missing-number/
  */
+@ProblemAnnotation(name = "Missing number", level = 1)
 public class MissingNumber {
   
   public static int findMissingNumberLinear(final List<Integer> numbers) {

@@ -1,5 +1,0 @@
-Kadane
-Missing number
-HV line segments
-Sort algorithms
-Minimum Spanning Tree

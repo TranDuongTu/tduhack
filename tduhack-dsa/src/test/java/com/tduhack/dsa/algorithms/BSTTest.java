@@ -1,6 +1,5 @@
 package com.tduhack.dsa.algorithms;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Binary Search Tree", level = 3)
 public class BSTTest {
 
   @Test

@@ -1,8 +1,11 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 /**
  * https://www.hackerrank.com/challenges/string-construction/problem
  */
+@ProblemAnnotation(name = "String construction", level = 1)
 public class StringConstruction {
 
   public static int constructString(final String input) {

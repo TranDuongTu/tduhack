@@ -1,6 +1,5 @@
 package com.tduhack.dsa.algorithms;
 
-import com.tduhack.dsa.Problem;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -8,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-@Problem(name = "Dijkstra", level = 5)
 public class ShortestPathTest {
 
   @Test

@@ -1,7 +1,10 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.math.BigInteger;
 
+@ProblemAnnotation(name = "Separate numbers", level = 2)
 public class SeparateNumbersString {
   
   public static String checkSeparateNumbersString(final String string) {

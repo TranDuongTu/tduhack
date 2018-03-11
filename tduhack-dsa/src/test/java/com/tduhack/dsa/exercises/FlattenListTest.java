@@ -1,13 +1,11 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Problem(name = "Flatten list of lists", level = 2)
 public class FlattenListTest {
 
   @Test

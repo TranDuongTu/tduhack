@@ -1,10 +1,13 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.*;
 
 /**
  * https://www.hackerrank.com/challenges/weighted-uniform-string/problem
  */
+@ProblemAnnotation(name = "Weighted uniform string", level = 2)
 public class WeightedUniformString {
 
   public static boolean[] queryUniform(final String string, final int[] queries) {

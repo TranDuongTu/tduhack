@@ -1,7 +1,9 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
 import com.tduhack.dsa.Utils;
 
+@ProblemAnnotation(name = "Heap and Heap sort", level = 3)
 public class Heap {
 
   public static void buildMaxHeap(final int[] heap) {

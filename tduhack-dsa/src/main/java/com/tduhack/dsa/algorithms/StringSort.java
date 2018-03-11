@@ -1,8 +1,11 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.Collections;
 import java.util.List;
 
+@ProblemAnnotation(name = "String Sorts", level = 5)
 public class StringSort {
 
   public static void quickSort(final List<String> strings) {

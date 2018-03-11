@@ -1,8 +1,11 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ProblemAnnotation(name = "PRIM Minimum Spanning Tree", level = 5)
 public class PRIM {
 
   public static List<int[]> findMST(final List<int[]> input) {

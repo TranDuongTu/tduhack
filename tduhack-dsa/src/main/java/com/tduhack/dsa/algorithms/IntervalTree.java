@@ -1,9 +1,12 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ProblemAnnotation(name = "Interval tree", level = 4)
 public class IntervalTree {
 
   private Node root;

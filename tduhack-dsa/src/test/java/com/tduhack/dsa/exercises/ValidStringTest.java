@@ -1,10 +1,8 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-@Problem(name = "Valid string", level = 2)
 public class ValidStringTest {
 
   @Test

@@ -1,8 +1,10 @@
 package com.tduhack.dsa.exercises;
 
 
+import com.tduhack.dsa.ProblemAnnotation;
 import com.tduhack.dsa.Utils;
 
+@ProblemAnnotation(name = "Kth Smallest element", level = 3)
 public class KthSmallestElement {
   
   public static int findSmallest(final int[] array, final int k) {

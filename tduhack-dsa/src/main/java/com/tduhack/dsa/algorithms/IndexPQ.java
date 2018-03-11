@@ -1,5 +1,8 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Indexed priority Queue", level = 3)
 public class IndexPQ {
   
   private int[] queue, inverseQueue, keys;

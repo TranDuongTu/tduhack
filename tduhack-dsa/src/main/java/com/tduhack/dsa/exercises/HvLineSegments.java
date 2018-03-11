@@ -1,10 +1,13 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ProblemAnnotation(name = "HV line segments", level = 5)
 public class HvLineSegments {
 
   public List<Point> findJointPoint(final List<HvSegment> segments) {

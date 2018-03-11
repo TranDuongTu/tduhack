@@ -1,5 +1,8 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Steps", level = 1)
 public class Steps {
 
   public char[][] buildStairs(final int n) {

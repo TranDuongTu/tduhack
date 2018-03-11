@@ -1,5 +1,8 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Binary Search Tree", level = 3)
 public class BST<Key extends Comparable<Key>, Value> {
 
   private Node root;

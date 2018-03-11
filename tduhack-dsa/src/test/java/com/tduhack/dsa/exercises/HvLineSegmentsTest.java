@@ -1,6 +1,5 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -14,7 +13,6 @@ import static com.tduhack.dsa.exercises.HvLineSegments.HvSegment;
 import static com.tduhack.dsa.exercises.HvLineSegments.Point;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "HV line segments", level = 5)
 public class HvLineSegmentsTest {
   
   private static final String TEST_FOLDER = "/HvLines";

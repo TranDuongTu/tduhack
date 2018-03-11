@@ -1,5 +1,8 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Rotate Array", level = 2)
 public class RotateArray {
   public static void rotateRight(final int[][] array) {
     final int n = array.length;

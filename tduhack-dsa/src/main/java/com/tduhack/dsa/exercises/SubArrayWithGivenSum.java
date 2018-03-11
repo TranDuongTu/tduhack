@@ -1,5 +1,8 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Sub array with given sum", level = 2)
 public class SubArrayWithGivenSum {
 
   public static int[] findSubArray(final int[] array, final int sum) {

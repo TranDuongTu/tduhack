@@ -1,9 +1,12 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@ProblemAnnotation(name = "Union Find", level = 3)
 public class UnionFind {
   
   private final int[] ids, sz;

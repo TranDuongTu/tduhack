@@ -1,9 +1,12 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+@ProblemAnnotation(name = "Running Median", level = 3)
 public class RunningMedian {
   public static int[] findRunningMedians(final int[] numbers) {
     final Queue<Integer> maxHeap = new PriorityQueue<>((o1, o2) -> o2 - o1);

@@ -1,8 +1,11 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ProblemAnnotation(name = "Dijkstra", level = 5)
 public class Dijkstra {
 
   public static int[] shortestDistancesFromSource(final int[][] input) {

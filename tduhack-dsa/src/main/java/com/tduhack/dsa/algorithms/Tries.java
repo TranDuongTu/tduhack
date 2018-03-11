@@ -1,9 +1,12 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+@ProblemAnnotation(name = "Tries", level = 4)
 public class Tries<V> {
   
   private Node root;

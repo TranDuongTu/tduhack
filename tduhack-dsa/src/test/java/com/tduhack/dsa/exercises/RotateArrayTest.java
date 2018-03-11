@@ -1,13 +1,11 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Rotate Array", level = 2)
 public class RotateArrayTest {
 
   @Test

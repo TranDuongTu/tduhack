@@ -1,6 +1,5 @@
 package com.tduhack.dsa.algorithms;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
@@ -8,7 +7,6 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Tries", level = 4)
 public class TriesTest {
 
   private static final Tries.Alphabet ALPHABET = new Tries.Alphabet() {

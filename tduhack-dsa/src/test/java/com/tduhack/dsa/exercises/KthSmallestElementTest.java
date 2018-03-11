@@ -1,10 +1,8 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-@Problem(name = "Kth Smallest element", level = 3)
 public class KthSmallestElementTest {
 
   @Test

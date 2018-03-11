@@ -1,6 +1,5 @@
 package com.tduhack.dsa.algorithms;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -12,7 +11,6 @@ import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Minimum Spanning Tree", level = 5)
 public class MstTest {
 
   private static String TESTCASE_PATH = "/MST/";

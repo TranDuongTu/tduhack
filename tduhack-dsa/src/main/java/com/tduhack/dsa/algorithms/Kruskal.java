@@ -1,9 +1,12 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+@ProblemAnnotation(name = "Kruskal Minimum Spanning Tree", level = 5)
 public class Kruskal {
 
   public static List<int[]> findMST(final List<int[]> input) {

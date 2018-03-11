@@ -1,5 +1,8 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
+@ProblemAnnotation(name = "Interval", level = 1)
 public class Interval implements Comparable<Interval> {
   private final int from, to;
 

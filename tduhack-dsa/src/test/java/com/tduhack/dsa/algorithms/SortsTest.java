@@ -1,14 +1,12 @@
 package com.tduhack.dsa.algorithms;
 
 import com.tduhack.dsa.Helpers;
-import com.tduhack.dsa.Problem;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Sort algorithms", level = 4)
 public class SortsTest {
 
   private static final int SIZE = 50000;

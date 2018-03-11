@@ -1,10 +1,8 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-@Problem(name = "Sub array with given sum", level = 2)
 public class SubArrayWithGivenSumTest {
 
   @Test

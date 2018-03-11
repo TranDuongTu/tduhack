@@ -1,11 +1,13 @@
 package com.tduhack.dsa.algorithms;
 
+import com.tduhack.dsa.ProblemAnnotation;
 import com.tduhack.dsa.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@ProblemAnnotation(name = "Sort algorithms", level = 4)
 public class Sorts {
 
   public static void bubbleSort(final int[] array) {

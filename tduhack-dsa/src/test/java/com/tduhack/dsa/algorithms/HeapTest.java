@@ -1,7 +1,6 @@
 package com.tduhack.dsa.algorithms;
 
 import com.tduhack.dsa.Helpers;
-import com.tduhack.dsa.Problem;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +8,6 @@ import java.util.Comparator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Heap and Heap sort", level = 3)
 public class HeapTest {
 
   @Test

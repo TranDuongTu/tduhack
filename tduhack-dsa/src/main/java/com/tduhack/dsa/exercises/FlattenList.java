@@ -1,8 +1,11 @@
 package com.tduhack.dsa.exercises;
 
+import com.tduhack.dsa.ProblemAnnotation;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ProblemAnnotation(name = "Flatten list of lists", level = 2)
 public class FlattenList {
   
   public static List<Object> flatten(final List<Object> list) {

@@ -1,6 +1,5 @@
 package com.tduhack.dsa.exercises;
 
-import com.tduhack.dsa.Problem;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -9,7 +8,6 @@ import java.io.InputStreamReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Problem(name = "Weighted uniform string", level = 2)
 public class WeightedUniformStringTest {
 
   @Test(timeout = 1000)
