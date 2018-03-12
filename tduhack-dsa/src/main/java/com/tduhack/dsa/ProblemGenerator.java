@@ -11,43 +11,42 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class ProblemGenerator {
 
-  private final int level;
-
-  public ProblemGenerator(final int level) {
-    this.level = level;
-  }
-
-  public List<HasFields> randomGenerate() {
+  public List<HasFields> allProblems() {
     final Reflections reflections = new Reflections("com.tduhack.dsa");
     final Set<Class<?>> problemClasses = reflections.getTypesAnnotatedWith(ProblemAnnotation.class);
-    final List<ProblemAnnotation> allProblemAnnotations = problemClasses.stream()
+    return problemClasses.stream()
             .map(p -> p.getAnnotation(ProblemAnnotation.class))
-            .collect(Collectors.toList());
-    return findProblemsWithGivenLevelSum(allProblemAnnotations, level)
-            .map(p -> FieldsBase.create()
-                    .set(Problem.name, p.name())
-                    .set(Problem.level, p.level()))
+            .map(this::transform)
             .collect(Collectors.toList());
   }
 
-  private static Stream<ProblemAnnotation> findProblemsWithGivenLevelSum(final List<ProblemAnnotation> problems, final int levelSum) {
+  public List<HasFields> randomGenerate(final int level) {
+    return findProblemsWithGivenLevelSum(allProblems(), level);
+  }
+
+  private static List<HasFields> findProblemsWithGivenLevelSum(final List<HasFields> problems, final int levelSum) {
     Collections.shuffle(problems);
-    final List<ProblemAnnotation> result = new ArrayList<>();
-    int start = 0, end = 0, currentSum = problems.get(0).level();
+    final List<HasFields> result = new ArrayList<>();
+    int start = 0, end = 0, currentSum = problems.get(0).get(Problem.level);
     while (end < problems.size()) {
       if (currentSum == levelSum) {
         IntStream.range(start, end + 1).forEach(i -> result.add(problems.get(i)));
         break;
       } else if (currentSum > levelSum && start < end) {
-        currentSum -= problems.get(start++).level();
+        currentSum -= problems.get(start++).get(Problem.level);
       } else {
-        currentSum += problems.get(++end).level();
+        currentSum += problems.get(++end).get(Problem.level);
       }
     }
-    return result.stream();
+    return result;
+  }
+
+  private HasFields transform(final ProblemAnnotation annotation) {
+    return FieldsBase.create()
+            .set(Problem.name, annotation.name())
+            .set(Problem.level, annotation.level());
   }
 }

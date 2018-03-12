@@ -1,0 +1,27 @@
+Name,Level
+PRIM Minimum Spanning Tree,5
+Heap and Heap sort,3
+Separate numbers,2
+Tries,4
+Kth Smallest element,3
+Rotate Array,2
+String construction,1
+Running Median,3
+Kadane,2
+Interval tree,4
+Steps,1
+HV line segments,5
+Binary Search Tree,3
+Equilibrium Point,1
+Union Find,3
+Weighted uniform string,2
+Sort algorithms,4
+Flatten list of lists,2
+Missing number,1
+Kruskal Minimum Spanning Tree,5
+Valid string,2
+Sub array with given sum,2
+String Sorts,5
+Dijkstra,5
+Indexed priority Queue,3
+Interval,1
