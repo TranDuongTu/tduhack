@@ -1,4 +1,4 @@
-package com.tduhack.endpoints;
+package com.tduhack.dsa.endpoints;
 
 public class Problem {
   private String name;

@@ -1,4 +1,4 @@
-package com.tduhack.endpoints;
+package com.tduhack.dsa.endpoints;
 
 import java.util.List;
 

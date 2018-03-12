@@ -13,12 +13,16 @@
     <module>tduhack-dsa</module>
     <module>tduhack-javaee</module>
     <module>tduhack-scala</module>
-    <module>tduhack-dsa-endpoint</module>
-      <module>tduhack-common</module>
+    <module>tduhack-common</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.tduhack</groupId>
+        <artifactId>tduhack-common</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>

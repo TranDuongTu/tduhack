@@ -1,4 +1,4 @@
-package com.tduhack.endpoints;
+package com.tduhack.dsa.endpoints;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
