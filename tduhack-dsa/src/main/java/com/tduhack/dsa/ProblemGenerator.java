@@ -31,7 +31,7 @@ public class ProblemGenerator {
   public List<HasFields> randomGenerate(final int level) {
     try {
       final List<HasFields> problems = readProblemsFromBackup();
-      return findProblemsWithGivenLevelSum(problems, level);
+      return level <= 0 ? problems : findProblemsWithGivenLevelSum(problems, level);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

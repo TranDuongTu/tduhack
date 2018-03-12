@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @Api(name = "dsa", version = "v1")
 public class DSA {
 
-  @ApiMethod(name = "today_problems", path = "today/{level}", httpMethod = ApiMethod.HttpMethod.GET)
-  public ProblemList today(final @Named("level") Integer level) {
+  @ApiMethod(name = "problems_with_level", path = "problems/{level}", httpMethod = ApiMethod.HttpMethod.GET)
+  public ProblemList problemsWithLevel(final @Named("level") Integer level) {
     final ProblemGenerator generator = new ProblemGenerator();
     final List<Problem> problems = generator.randomGenerate(level).stream()
             .map(this::transform).collect(Collectors.toList());
