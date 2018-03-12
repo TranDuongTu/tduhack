@@ -28,7 +28,7 @@ public class ProblemGeneratorTest {
 
   @Test
   public void syncProblemsData() throws Exception {
-    final List<HasFields> problems = generator.allProblems();
+    final List<HasFields> problems = generator.getAnnotatedProblems();
 
     final String filePath = "src/main/resources/problems.txt";
     final BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));

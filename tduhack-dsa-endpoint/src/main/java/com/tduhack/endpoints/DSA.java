@@ -14,8 +14,8 @@ public class DSA {
 
   @ApiMethod(name = "today_problems", path = "today/{level}", httpMethod = ApiMethod.HttpMethod.GET)
   public ProblemList today(final @Named("level") Integer level) {
-    final ProblemGenerator generator = new ProblemGenerator(level);
-    final List<Problem> problems = generator.randomGenerate().stream()
+    final ProblemGenerator generator = new ProblemGenerator();
+    final List<Problem> problems = generator.randomGenerate(level).stream()
             .map(this::transform).collect(Collectors.toList());
     final ProblemList problemList = new ProblemList();
     problemList.setProblems(problems);

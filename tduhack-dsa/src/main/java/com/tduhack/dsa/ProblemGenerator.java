@@ -2,9 +2,14 @@ package com.tduhack.dsa;
 
 import com.tduhack.FieldsBase;
 import com.tduhack.HasFields;
+import com.tduhack.Strings;
 import com.tduhack.dsa.entity.Problem;
 import org.reflections.Reflections;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +19,7 @@ import java.util.stream.IntStream;
 
 public class ProblemGenerator {
 
-  public List<HasFields> allProblems() {
+  public List<HasFields> getAnnotatedProblems() {
     final Reflections reflections = new Reflections("com.tduhack.dsa");
     final Set<Class<?>> problemClasses = reflections.getTypesAnnotatedWith(ProblemAnnotation.class);
     return problemClasses.stream()
@@ -24,7 +29,31 @@ public class ProblemGenerator {
   }
 
   public List<HasFields> randomGenerate(final int level) {
-    return findProblemsWithGivenLevelSum(allProblems(), level);
+    try {
+      final List<HasFields> problems = readProblemsFromBackup();
+      return findProblemsWithGivenLevelSum(problems, level);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private List<HasFields> readProblemsFromBackup() throws IOException {
+    final InputStream inputStream = getClass().getResourceAsStream("/problems.txt");
+    final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+    try {
+      br.readLine();
+      String buff;
+      final List<HasFields> problems = new ArrayList<>();
+      while (Strings.isNotEmpty(buff = br.readLine())) {
+        final String[] tokens = buff.split(",");
+        final String name = tokens[0].trim();
+        final int level = Integer.valueOf(tokens[1]);
+        problems.add(FieldsBase.create().set(Problem.name, name).set(Problem.level, level));
+      }
+      return problems;
+    } finally {
+      br.close();
+    }
   }
 
   private static List<HasFields> findProblemsWithGivenLevelSum(final List<HasFields> problems, final int levelSum) {
