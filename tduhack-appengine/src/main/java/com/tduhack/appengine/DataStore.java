@@ -11,6 +11,11 @@ public class DataStore implements Store {
   }
 
   @Override
+  public QueryBuilder<Bean> query(String kind) {
+    return new DSQueryBuilder(kind, this);
+  }
+
+  @Override
   public Bean create(String kind, Long id) {
     final Entity entity = createEntity(kind, id);
     return new Bean(entity);
@@ -49,5 +54,9 @@ public class DataStore implements Store {
     } catch (EntityNotFoundException e) {
       return null;
     }
+  }
+
+  PreparedQuery prepared(final Query query) {
+    return ds.prepare(query);
   }
 }

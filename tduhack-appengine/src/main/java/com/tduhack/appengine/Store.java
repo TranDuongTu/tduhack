@@ -10,4 +10,6 @@ public interface Store {
   Bean find(final String keyCode);
 
   Bean find(final String kind, final Long id);
+
+  QueryBuilder<Bean> query(final String kind);
 }

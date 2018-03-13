@@ -1,6 +1,7 @@
 package com.tduhack.appengine;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.tduhack.Field;
 import com.tduhack.HasFields;
@@ -15,12 +16,9 @@ public class Bean implements HasFields {
 
   public Bean(final Entity entity) {
     this.entity = entity;
-    set(HasId.id, entity.getKey().getId());
-    set(HasKeyName.keyName, entity.getKey().getName());
-  }
-
-  public String kind() {
-    return entity.getKind();
+    final Key key = entity.getKey();
+    set(HasId.id, key.getId() > 0 ? key.getId() : null);
+    set(HasKeyName.keyName, key.getName());
   }
 
   @Override
