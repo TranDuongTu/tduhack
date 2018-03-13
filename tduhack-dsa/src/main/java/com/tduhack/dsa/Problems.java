@@ -1,10 +1,9 @@
 package com.tduhack.dsa;
 
-import com.tduhack.JSON;
 import com.tduhack.HasFields;
+import com.tduhack.JSON;
 import com.tduhack.Strings;
 import com.tduhack.dsa.entity.Problem;
-import org.reflections.Reflections;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,32 +12,21 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
-public class ProblemGenerator {
+public class Problems {
 
-  public List<HasFields> getAnnotatedProblems() {
-    final Reflections reflections = new Reflections("com.tduhack.dsa");
-    final Set<Class<?>> problemClasses = reflections.getTypesAnnotatedWith(ProblemAnnotation.class);
-    return problemClasses.stream()
-            .map(p -> p.getAnnotation(ProblemAnnotation.class))
-            .map(this::transform)
-            .collect(Collectors.toList());
+  private static final Logger logger = Logger.getLogger(Problems.class.getName());
+
+  public static List<HasFields> selectProblems(final int level) {
+    final List<HasFields> problems = getAllProblems();
+    return findProblemsWithGivenLevelSum(problems, level);
   }
 
-  public List<HasFields> randomGenerate(final int level) {
-    try {
-      final List<HasFields> problems = readProblemsFromBackup();
-      return level <= 0 ? problems : findProblemsWithGivenLevelSum(problems, level);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private List<HasFields> readProblemsFromBackup() throws IOException {
-    final InputStream inputStream = getClass().getResourceAsStream("/problems.txt");
+  public static List<HasFields> getAllProblems() {
+    final InputStream inputStream = Problems.class.getResourceAsStream("/problems.txt");
     final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
     try {
       br.readLine();
@@ -51,8 +39,16 @@ public class ProblemGenerator {
         problems.add(JSON.create().set(Problem.name, name).set(Problem.level, level));
       }
       return problems;
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Cannot read problems resources");
+      throw new RuntimeException(e);
     } finally {
-      br.close();
+      try {
+        br.close();
+      } catch (IOException e) {
+        logger.log(Level.SEVERE, "Cannot close resources stream");
+        throw new RuntimeException(e);
+      }
     }
   }
 
@@ -71,11 +67,5 @@ public class ProblemGenerator {
       }
     }
     return result;
-  }
-
-  private HasFields transform(final ProblemAnnotation annotation) {
-    return JSON.create()
-            .set(Problem.name, annotation.name())
-            .set(Problem.level, annotation.level());
   }
 }

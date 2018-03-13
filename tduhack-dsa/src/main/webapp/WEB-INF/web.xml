@@ -34,7 +34,7 @@
         <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>com.tduhack.endpoints.DSA</param-value>
+            <param-value>com.tduhack.dsa.endpoints.DSA</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

@@ -4,8 +4,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.tduhack.HasFields;
-import com.tduhack.appengine.Bean;
-import com.tduhack.dsa.ProblemGenerator;
+import com.tduhack.dsa.Problems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,8 @@ public class DSA {
   }
 
   private List<Problem> generateProblems(final int level) {
-    final List<HasFields> problems = new ProblemGenerator().randomGenerate(level);
+    final Problems generator = new Problems();
+    final List<HasFields> problems = level == 0 ? generator.getAllProblems() : generator.selectProblems(level);
     return problems == null ? new ArrayList<>() : problems.stream()
             .map(this::transform).collect(Collectors.toList());
   }

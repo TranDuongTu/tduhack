@@ -1,23 +1,25 @@
 package com.tduhack.dsa;
 
 import com.tduhack.HasFields;
+import com.tduhack.JSON;
 import com.tduhack.dsa.entity.Problem;
 import org.junit.Test;
+import org.reflections.Reflections;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProblemGeneratorTest {
-
-  private static final ProblemGenerator generator = new ProblemGenerator();
+public class ProblemsTest {
 
   @Test
   public void testTotalLevelOfGeneratedProblems() {
     final int LEVEL = 10;
-    final List<HasFields> problems = generator.randomGenerate(LEVEL);
+    final List<HasFields> problems = Problems.selectProblems(LEVEL);
     assertThat(problems).isNotEmpty();
 
     final int sumLevel = problems.stream()
@@ -28,7 +30,7 @@ public class ProblemGeneratorTest {
 
   @Test
   public void syncProblemsData() throws Exception {
-    final List<HasFields> problems = generator.getAnnotatedProblems();
+    final List<HasFields> problems = getAnnotatedProblems();
 
     final String filePath = "src/main/resources/problems.txt";
     final BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
@@ -39,5 +41,20 @@ public class ProblemGeneratorTest {
       bw.write(name + "," + level + "\n");
     }
     bw.close();
+  }
+
+  public List<HasFields> getAnnotatedProblems() {
+    final Reflections reflections = new Reflections("com.tduhack.dsa");
+    final Set<Class<?>> problemClasses = reflections.getTypesAnnotatedWith(ProblemAnnotation.class);
+    return problemClasses.stream()
+            .map(p -> p.getAnnotation(ProblemAnnotation.class))
+            .map(this::transform)
+            .collect(Collectors.toList());
+  }
+
+  private HasFields transform(final ProblemAnnotation annotation) {
+    return JSON.create()
+            .set(Problem.name, annotation.name())
+            .set(Problem.level, annotation.level());
   }
 }
