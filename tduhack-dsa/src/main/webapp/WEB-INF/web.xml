@@ -19,7 +19,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <!-- Wrap the backend with Endpoints Frameworks v2. -->
+    <servlet>
+        <servlet-name>AppServlet</servlet-name>
+        <servlet-class>com.tduhack.dsa.endpoints.AppServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AppServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>EndpointsServlet</servlet-name>
         <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
@@ -28,7 +37,6 @@
             <param-value>com.tduhack.endpoints.DSA</param-value>
         </init-param>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>EndpointsServlet</servlet-name>
         <url-pattern>/_ah/api/*</url-pattern>
