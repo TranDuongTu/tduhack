@@ -1,6 +1,6 @@
 package com.tduhack;
 
-public class Field<T> {
+public class Field<T> implements Comparable<Field<T>> {
   private final String name;
   private final Class<T> dataType;
 
@@ -11,5 +11,10 @@ public class Field<T> {
 
   public String name() {
     return name;
+  }
+
+  @Override
+  public int compareTo(Field<T> o) {
+    return name.compareTo(o.name);
   }
 }

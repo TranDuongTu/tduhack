@@ -4,22 +4,34 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.Named;
 import com.tduhack.HasFields;
+import com.tduhack.appengine.Bean;
 import com.tduhack.dsa.ProblemGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Api(name = "dsa", version = "v1")
 public class DSA {
 
+  @ApiMethod(name = "all_problems", path = "problems", httpMethod = ApiMethod.HttpMethod.GET)
+  public ProblemList allProblems() {
+    final ProblemList problemList = new ProblemList();
+    problemList.setProblems(generateProblems(0));
+    return problemList;
+  }
+
   @ApiMethod(name = "problems_with_level", path = "problems/{level}", httpMethod = ApiMethod.HttpMethod.GET)
   public ProblemList problemsWithLevel(final @Named("level") Integer level) {
-    final ProblemGenerator generator = new ProblemGenerator();
-    final List<Problem> problems = generator.randomGenerate(level).stream()
-            .map(this::transform).collect(Collectors.toList());
     final ProblemList problemList = new ProblemList();
-    problemList.setProblems(problems);
+    problemList.setProblems(generateProblems(level));
     return problemList;
+  }
+
+  private List<Problem> generateProblems(final int level) {
+    final List<HasFields> problems = new ProblemGenerator().randomGenerate(level);
+    return problems == null ? new ArrayList<>() : problems.stream()
+            .map(this::transform).collect(Collectors.toList());
   }
 
   private Problem transform(final HasFields hasFields) {

@@ -26,6 +26,10 @@
       <artifactId>tduhack-common</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.tduhack.appengine</groupId>
+      <artifactId>tduhack-appengine</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -49,11 +53,6 @@
       <groupId>com.google.endpoints</groupId>
       <artifactId>endpoints-management-control-appengine-all</artifactId>
       <version>1.0.5</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.appengine</groupId>
-      <artifactId>appengine-api-1.0-sdk</artifactId>
-      <version>1.9.58</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

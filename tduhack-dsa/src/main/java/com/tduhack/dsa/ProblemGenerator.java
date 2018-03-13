@@ -1,6 +1,6 @@
 package com.tduhack.dsa;
 
-import com.tduhack.FieldsBase;
+import com.tduhack.JSON;
 import com.tduhack.HasFields;
 import com.tduhack.Strings;
 import com.tduhack.dsa.entity.Problem;
@@ -48,7 +48,7 @@ public class ProblemGenerator {
         final String[] tokens = buff.split(",");
         final String name = tokens[0].trim();
         final int level = Integer.valueOf(tokens[1]);
-        problems.add(FieldsBase.create().set(Problem.name, name).set(Problem.level, level));
+        problems.add(JSON.create().set(Problem.name, name).set(Problem.level, level));
       }
       return problems;
     } finally {
@@ -74,7 +74,7 @@ public class ProblemGenerator {
   }
 
   private HasFields transform(final ProblemAnnotation annotation) {
-    return FieldsBase.create()
+    return JSON.create()
             .set(Problem.name, annotation.name())
             .set(Problem.level, annotation.level());
   }

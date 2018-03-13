@@ -8,7 +8,7 @@ public class FieldsBaseTest {
 
   @Test
   public void testGetSet() {
-    final HasFields hasFields = FieldsBase.create();
+    final HasFields hasFields = JSON.create();
     final Field<String> stringField = new Field<>("string", String.class);
     final Field<Integer> integerField = new Field<>("integer", Integer.class);
     final Field<Double> doubleField = new Field<>("double", Double.class);
