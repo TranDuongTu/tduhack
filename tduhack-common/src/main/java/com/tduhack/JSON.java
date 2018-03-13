@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class JSON implements HasFields<JSON> {
+public class JSON implements HasFields {
 
   private final Map<Field, Object> map = new HashMap<>();
 

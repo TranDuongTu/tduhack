@@ -1,10 +1,10 @@
 package com.tduhack;
 
-public interface HasFields<H extends HasFields> extends Iterable<Field> {
+public interface HasFields extends Iterable<Field> {
 
   <T> T get(final Field<T> field);
 
-  <T> H set(final Field<T> field, final T value);
+  <T> HasFields set(final Field<T> field, final T value);
 
   default HasFields set(final String key, final Object value) {
     final Field field = new Field(key, guessType(value));

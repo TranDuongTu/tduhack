@@ -10,7 +10,7 @@ import com.tduhack.HasKeyName;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Bean implements HasFields<Bean> {
+public class Bean implements HasFields {
   private final Entity entity;
 
   public Bean(final Entity entity) {
