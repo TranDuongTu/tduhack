@@ -70,14 +70,6 @@
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -85,11 +77,15 @@
         <version>2.6</version>
         <configuration>
           <webResources>
-            <resources>
+            <resource>
               <directory>${basedir}/src/main/webapp/WEB-INF</directory>
               <filtering>true</filtering>
               <targetPath>WEB-INF</targetPath>
-            </resources>
+            </resource>
+            <resource>
+              <directory>src/main/resources/static</directory>
+              <filtering>true</filtering>
+            </resource>
           </webResources>
         </configuration>
       </plugin>
@@ -141,6 +137,24 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>deploy statics</id>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>deploy_statics_gs.sh</executable>
+        </configuration>
       </plugin>
     </plugins>
   </build>

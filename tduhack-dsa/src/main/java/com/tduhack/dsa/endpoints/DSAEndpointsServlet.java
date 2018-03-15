@@ -9,8 +9,6 @@ import com.tduhack.appengine.Store;
 import com.tduhack.dsa.entity.Problem;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,9 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class AppServlet extends HttpServlet {
+public class DSAEndpointsServlet extends HttpServlet {
 
-  private static final Logger logger = Logger.getLogger(AppServlet.class.getName());
+  private static final Logger logger = Logger.getLogger(DSAEndpointsServlet.class.getName());
 
   @Override
   public void init() {
@@ -49,7 +47,7 @@ public class AppServlet extends HttpServlet {
   }
 
   public static List<HasFields> getAllProblems() {
-    final InputStream inputStream = AppServlet.class.getResourceAsStream("/problems.txt");
+    final InputStream inputStream = DSAEndpointsServlet.class.getResourceAsStream("/problems.txt");
     final BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
     try {
       br.readLine();
@@ -71,10 +69,5 @@ public class AppServlet extends HttpServlet {
         throw new RuntimeException(e);
       }
     }
-  }
-
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    resp.getWriter().print("Welcome to DSA!!!");
   }
 }

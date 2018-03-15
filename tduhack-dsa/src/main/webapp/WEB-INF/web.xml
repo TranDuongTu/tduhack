@@ -19,30 +19,20 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>AppServlet</servlet-name>
-        <servlet-class>com.tduhack.dsa.endpoints.AppServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AppServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
+  <servlet>
+    <servlet-name>EndpointsServlet</servlet-name>
+    <servlet-class>com.tduhack.dsa.endpoints.DSAEndpointsServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value>com.tduhack.dsa.endpoints.DSA</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EndpointsServlet</servlet-name>
+    <url-pattern>/_ah/api/*</url-pattern>
+  </servlet-mapping>
 
-    <servlet>
-        <servlet-name>EndpointsServlet</servlet-name>
-        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
-        <init-param>
-            <param-name>services</param-name>
-            <param-value>com.tduhack.dsa.endpoints.DSA</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EndpointsServlet</servlet-name>
-        <url-pattern>/_ah/api/*</url-pattern>
-    </servlet-mapping>
-
-    <welcome-file-list>
-        <welcome-file>static/index.html</welcome-file>
-    </welcome-file-list>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
 </web-app>
