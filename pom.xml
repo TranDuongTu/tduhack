@@ -10,11 +10,13 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>tduhack-dsa</module>
     <module>tduhack-javaee</module>
     <module>tduhack-scala</module>
     <module>tduhack-common</module>
     <module>tduhack-appengine</module>
+    <module>tduhack-users</module>
+    <module>tduhack-endpoints</module>
+    <module>tduhack-products</module>
   </modules>
 
   <dependencyManagement>
@@ -30,6 +32,12 @@
         <version>1.0-SNAPSHOT</version>
       </dependency>
       <dependency>
+        <groupId>com.tduhack.users</groupId>
+        <artifactId>tduhack-users</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.12</version>
@@ -42,6 +50,20 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.6.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
