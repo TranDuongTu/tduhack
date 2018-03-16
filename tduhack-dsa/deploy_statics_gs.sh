@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo Deploying statics files...
 
 gcloud config set project tduhack-dsa
