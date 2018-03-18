@@ -27,4 +27,9 @@ public interface HasFields extends Iterable<Field> {
   default Long id() {
     return get(HasId.id);
   }
+
+  default <T> boolean is(final Field<T> field, final T value) {
+    final T actual = get(field);
+    return value == null ? actual == null : value.equals(actual);
+  }
 }

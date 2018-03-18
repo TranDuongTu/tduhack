@@ -22,7 +22,7 @@ public class DSQueryBuilder implements QueryBuilder<Bean> {
   }
 
   @Override
-  public <V> QueryBuilder whereEquals(Field<V> field, V value) {
+  public <V> QueryBuilder<Bean> whereEquals(Field<V> field, V value) {
     filterList.add(new Query.FilterPredicate(field.name(), Query.FilterOperator.EQUAL, value));
     return this;
   }

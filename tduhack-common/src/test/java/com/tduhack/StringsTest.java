@@ -1,5 +1,6 @@
 package com.tduhack;
 
+import com.tduhack.utils.Strings;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

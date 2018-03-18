@@ -5,7 +5,7 @@ public interface Store {
 
   Bean create(final String kind);
 
-  void save(final Bean bean);
+  Bean save(final Bean bean);
 
   Bean find(final String keyCode);
 

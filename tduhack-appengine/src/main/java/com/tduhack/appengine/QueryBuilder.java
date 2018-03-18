@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public interface QueryBuilder<T extends HasFields> extends Iterable<T> {
-  <V> QueryBuilder whereEquals(final Field<V> field, final V value);
+  <V> QueryBuilder<T> whereEquals(final Field<V> field, final V value);
 
   Iterable<T> collect();
 

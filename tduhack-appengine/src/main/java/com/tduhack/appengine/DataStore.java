@@ -1,6 +1,8 @@
 package com.tduhack.appengine;
 
 import com.google.appengine.api.datastore.*;
+import com.tduhack.HasId;
+import com.tduhack.HasKeyName;
 
 public class DataStore implements Store {
 
@@ -32,9 +34,12 @@ public class DataStore implements Store {
   }
 
   @Override
-  public void save(final Bean bean) {
+  public Bean save(final Bean bean) {
     final Entity entity = bean.getEntity();
-    ds.put(entity);
+    final Key key = ds.put(entity);
+    bean.set(HasId.id, key.getId());
+    bean.set(HasKeyName.keyName, key.getName());
+    return bean;
   }
 
   @Override
